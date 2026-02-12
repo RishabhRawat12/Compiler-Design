@@ -1,6 +1,6 @@
-# Velora Programming Language
+# _EduLex_ Programming Language
 
-Velora is a minimal and structured programming language designed for learning lexical analysis and compiler construction.
+EduLex is a minimal and structured programming language designed for learning lexical analysis and compiler construction.
 
 It emphasizes strict rules, readable syntax, and simplicity.
 
@@ -73,7 +73,7 @@ Rules:
 - Empty phrase allowed: ""
 
 Example:
-phrase name = "Velora"
+phrase name = "EduLex"
 phrase message = "Hello World"
 phrase empty = ""
 
