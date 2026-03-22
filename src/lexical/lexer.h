@@ -14,26 +14,28 @@ class Lexer{
         vector<Token> tokens;
 
         //helper pointers for scanning
-        int start;
-        int current;
-        int line;
+        size_t start;
+        size_t current;
+        int line,col;
 
         //helper functiond for scanning 
         bool isAtend();
         char advance();
         char peek();
+        char peekNext();
 
         //core functions
         void scanToken();
         void identifier();
         void number();
+        void stringLiteral();
 
         //to add tkens that are being identified
-        void addToke(TokenType type);
+        void addToken(TokenType type);
 
     public:
     //construcotr having read the source code
-        Lexer(string src);
+        Lexer(const string& src);
 
         //tokenizer
         vector<Token> tokenize();

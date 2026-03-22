@@ -1,0 +1,16 @@
+// Testing the new Lexer refactor
+int main_variable = 100;
+string message = "Hello Engineering World";
+
+char _testChar = 'A'; 
+
+/* Testing if division and comments 
+   are handled correctly 
+*/
+int result = main_variable / 2;
+
+string multiLineCheck = "This is a 
+test for multi-line 
+strings";
+
+int finalValue = 50 + 25 * 2;
