@@ -1,4 +1,4 @@
-*.exe
+compiler.exe
 output/
 *.o
 *.out
