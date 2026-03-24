@@ -1,204 +1,112 @@
-# _EduLex_ Programming Language
+# 🚀 Static Code Analyzer with Error Handling
 
-EduLex is a minimal and structured programming language designed for learning lexical analysis and compiler construction.
-
-It emphasizes strict rules, readable syntax, and simplicity.
+A web-based Static Code Analyzer designed to help students and learners understand how code is compiled and where errors occur. This project demonstrates core concepts of compiler design including lexical, syntax, and semantic analysis.
 
 ---
 
-# Reserved Keywords
+## 📌 Features
 
-The following words are reserved and cannot be used as identifiers:
-
-num  
-text  
-phrase  
-when  
-otherwise  
-cycle  
-project  
-hollow  
-skip  
-shatter  
+- 🧩 Lexical Analysis (Token Generation)
+- 🌳 Syntax Analysis (Parse Tree / AST)
+- 🧠 Semantic Analysis (Symbol Table & Type Checking)
+- ❌ Clear and Human-Readable Error Messages
+- 🖥️ Web-Based Code Editor
+- 🔐 Secure Code Execution Environment
+- 💾 Save Code & Execution History
+- 👤 User Authentication System
 
 ---
 
-# Data Types
-
-## 1. num
-
-Represents numeric values (integers and floating-point numbers).
-
-Rules:
-- Supports integers and decimals
-- Scientific notation is NOT supported
-- Must contain digits before decimal point
-- `.5` is invalid
-- `10.` is invalid
-
-Example:
-num x = 10
-num price = 99.5
-num ratio = 0.75
-
----
-
-## 2. text
-
-Represents a single character.
-
-Rules:
-- Must be enclosed in single quotes
-- Must contain exactly one character
-- Escape sequences supported: '\n', '\t', '\'', '\\'
-- `'AB'` is invalid
-- `''` is invalid
-
-Example:
-text grade = 'A'
-text symbol = '#'
-text newline = '\n'
+## 🏗️ Project Structure
+Static-Code-Analyzer/
+│
+├── frontend/ # UI (HTML, CSS, JS)
+├── backend/ # Server-side logic
+├── lexer/ # Lexical Analyzer
+├── parser/ # Syntax Analyzer
+├── semantic/ # Semantic Analyzer
+├── database/ # DB Config & Models
+└── README.md
 
 
 ---
 
-## 3. phrase
+## ⚙️ Working
 
-Represents a sequence of characters (string).
-
-Rules:
-- Must be enclosed in double quotes
-- Escape sequences supported: "\n", "\t", "\"", "\\"
-- Multi-line phrases are NOT allowed
-- Empty phrase allowed: ""
-
-Example:
-phrase name = "EduLex"
-phrase message = "Hello World"
-phrase empty = ""
-
+1. User writes code in the web editor.
+2. Code is passed to the Lexical Analyzer → Tokens are generated.
+3. Tokens are parsed by Syntax Analyzer → AST is built.
+4. Semantic Analyzer checks for logical errors.
+5. Errors (if any) are displayed with line numbers and explanations.
+6. Code is executed in a secure environment.
+7. Results and history are stored in the database.
 
 ---
 
-# Special Value
+## 🧠 Compiler Phases Implemented
 
-## hollow
+### 1. Lexical Analysis
+- Converts source code into tokens
+- Identifies keywords, identifiers, operators
 
-Represents absence of value (null).
+### 2. Syntax Analysis
+- Uses Recursive Descent Parser (LL(1))
+- Builds Abstract Syntax Tree (AST)
 
-Example:
-
----
-
-# Identifiers
-
-Rules:
-- Must start with a letter (A–Z or a–z)
-- Can contain letters, digits, and underscore
-- Case sensitive
-- Cannot match any reserved keyword
-
-Valid Examples:
-value
-total_sum
-x1
-DataPoint
-
-Invalid Examples:
-1value
-num
-when
-
+### 3. Semantic Analysis
+- Symbol Table Management
+- Type Checking
+- Detects:
+  - Undeclared Variables
+  - Redeclarations
+  - Type Errors
 
 ---
 
-# Operators
+## 🎯 Goals
 
-## Arithmetic Operators
-
-+   Addition  
--   Subtraction  
-*   Multiplication  
-/   Division  
-%   Modulus  
-
-Example:
-num total = 10 + 5 * 2
-
-## Assignment Operator
-
-=  
-
-Example:
-num x = 10
-
-## Comparison Operators
-
-==   Equal to  
-!=   Not equal to  
->    Greater than  
-<    Less than  
->=   Greater than or equal  
-<=   Less than or equal  
-
-Example:
-when x >= 10 {
-project "Large"
-}
-
-## Logical Operators
-
-and  
-or  
-not  
-
-Example:
-when x > 5 and x < 20 {
-project "Valid"
-}
+- Help students understand compiler design practically
+- Provide clear explanation of errors
+- Build a modular and scalable analyzer system
+- Bridge theory and real-world implementation
 
 ---
 
-# Control Structures
+## 🚧 Challenges
 
-## Conditional Statement
-
-Structure:
-when condition {
-statements
-}
-otherwise {
-statements
-}
-
-Example:
-when price > 50 {
-project "Expensive"
-}
-otherwise {
-project "Affordable"
-}
+- Designing LL(1) grammar
+- Handling syntax and semantic errors efficiently
+- Building and visualizing AST
+- Ensuring secure execution environment
 
 ---
 
-# Output
+## 🔮 Future Scope
 
-## project
-
-Used to display output.
-
-Example:
-project "Hello World"
-project value
+- Add Code Optimization Phase
+- Support Multiple Programming Languages
+- Improve Error Suggestions using AI
+- Add Intermediate Code Generation
 
 ---
 
+## 🛠️ Tech Stack
 
-# Whitespace Rules
-
-- Language is case sensitive
-- Whitespace is ignored except as separator
-- Blocks must use { }
-- Indentation has no syntactic meaning
+- Frontend: HTML, CSS, JavaScript
+- Backend: (Node.js / Python - specify yours)
+- Database: (MongoDB / MySQL - specify yours)
 
 ---
+
+## ▶️ How to Run
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/static-code-analyzer.git
+
+# Navigate to project folder
+cd static-code-analyzer
+
+# Install dependencies
+
+# Run the project
