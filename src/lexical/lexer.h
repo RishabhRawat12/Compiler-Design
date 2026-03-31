@@ -1,44 +1,51 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-#include<iostream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <string>
+#include <vector>
 #include "token.h"
 
 using namespace std;
 
-class Lexer{
-    private:
-        string source;
-        vector<Token> tokens;
+class Lexer {
+private:
+    string source;
+    vector<Token> tokens;
 
-        //helper pointers for scanning
-        size_t start;
-        size_t current;
-        int line,col;
+// Error storag
+    vector<LexError> errors;
 
-        //helper functiond for scanning 
-        bool isAtend();
-        char advance();
-        char peek();
-        char peekNext();
+//helper pointers for scanning
+    size_t start;
+    size_t current;
+    int line, col;
 
-        //core functions
-        void scanToken();
-        void identifier();
-        void number();
-        void stringLiteral();
+// helper functions for scanning
+    bool isAtEnd();
+    char advance();
+    char peek();
+    char peekNext();
 
-        //to add tkens that are being identified
-        void addToken(TokenType type);
+// core functions
+    void scanToken();
+    void identifier();
+    void number();
+    void stringLiteral();
 
-    public:
-    //construcotr having read the source code
-        Lexer(const string& src);
+// to add tokens that are being identified
+    void addToken(TokenType type);
 
-        //tokenizer
-        vector<Token> tokenize();
+public:
+ // constructor (removed SymbolTable dependency)
+    Lexer(const string& src);
+
+    // tokenizer
+    vector<Token> tokenize();
+
+    // error handling API
+    void addError(string msg);
+    vector<LexError> getErrors();
 };
 
 #endif
