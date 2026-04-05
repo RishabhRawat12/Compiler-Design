@@ -8,7 +8,6 @@
 using namespace std;
 
 // Helper function to convert enum to string for the output file
-// If the external asks, tell him: "Sir, C++ doesn't support enum reflection, so I mapped them manually."
 string getTokenTypeName(TokenType type) {
     switch(type) {
         case KEYWORD_INT: return "KEYWORD_INT";
