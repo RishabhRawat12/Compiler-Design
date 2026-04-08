@@ -1,21 +1,15 @@
-#ifndef AST_PRINTER_H
-#define AST_PRINTER_H
+#pragma once
 
-#include "stmt.h"
 #include <vector>
+#include <memory>
+#include "json.hpp"
+
+using json = nlohmann::json;
+
+class Stmt;
 
 class ASTPrinter {
 public:
-    // Pura AST (list of statements) print karne ke liye
-    static void printAST(const vector<Stmt*>& program) {
-        cout << "\n--- Generated AST Structure ---" << endl;
-        for (Stmt* stmt : program) {
-            if (stmt) {
-                stmt->print(0); // Level 0 indentation se start karo
-                cout << endl;
-            }
-        }
-    }
+    // Simple wrapper: AST → JSON array
+    static json buildAST(const std::vector<std::unique_ptr<Stmt>>& program);
 };
-
-#endif
