@@ -1,25 +1,25 @@
 #ifndef AST_BASE_H
 #define AST_BASE_H
 
-#include <iostream>
 #include <string>
 #include <vector>
+#include "json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
-// Base class for all expressions (like 5, x, etc.)
 class Expr {
 public:
-    virtual ~Expr() {}
-    // pure virtual function - printer isko use karega
-    virtual void print(int indent) = 0; 
+    int line = 0;
+    virtual ~Expr() = default;
+    virtual json toJson() const = 0;
 };
 
-// Base class for all statements (like int x = 5;)
 class Stmt {
 public:
-    virtual ~Stmt() {}
-    virtual void print(int indent) = 0;
+    int line = 0;
+    virtual ~Stmt() = default;
+    virtual json toJson() const = 0;
 };
 
 #endif
