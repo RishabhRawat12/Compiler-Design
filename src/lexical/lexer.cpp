@@ -1,183 +1,112 @@
 #include "lexer.h"
-#include<cctype> // needed for isAlpha, is Digit and isalnum
-#include<vector>
+#include <cctype>
 
-//Constructor implemention
-
-Lexer::Lexer(const string& src){
-    source=src;
-    start=0;
-    current=0;
-    line=1;
-    col=1;
+Lexer::Lexer(string src) {
+    source = src;
+    start = 0; current = 0; line = 1; col = 1;
 }
 
-bool Lexer::isAtend(){
-    return current >= source.length();
+bool Lexer::isAtEnd() { return current >= source.length(); }
+
+char Lexer::advance() { col++; return source[current++]; }
+
+char Lexer::peek() { if (isAtEnd()) return '\0'; return source[current]; }
+
+char Lexer::peekNext() { if (current + 1 >= source.length()) return '\0'; return source[current + 1]; }
+
+void Lexer::addError(string msg) { errors.push_back(LexError(line, col, msg)); }
+
+void Lexer::addToken(TokenType type) {
+    string_view text(source.c_str() + start, current - start);
+    int tokenCol = col - (current - start);
+    tokens.push_back(Token(type, string(text), line, tokenCol));
 }
 
-//advance
-char Lexer:: advance(){
-    char ch=source[current++];
-    col++;
-    return ch; //increment after feteching
-}
-
-//peek
-char Lexer::peek(){
-    if(isAtend()) 
-        return '\0'; //null char if we hit the end
-    
-    return source[current];
-}
-
-char Lexer::peekNext(){
-    if(current+1 >=source.length()) return '\0';
-
-    return source[current+1];
-}
-
-void Lexer::addToken(TokenType type){
-
-    //we extract exact lexeme using two pointers
-    string text =source.substr(start,current - start);
-    tokens.push_back(Token(type,text,line,col-(int)text.length()));
-}
-
-//identifier
-void Lexer::identifier(){
-    // point till the last char is alphanumeric
-    while(isalnum(peek()) ||peek()== '_'){
-        advance();
+vector<Token> Lexer::tokenize() {
+    while (!isAtEnd()) {
+        start = current;
+        scanToken();
     }
-
-    string text= source.substr(start,current-start);
-
-    TokenType type;
-    if(text=="int")
-        type= KEYWORD_INT;
-    else if(text=="char")
-        type=KEYWORD_CHAR;
-    else if(text=="string")
-        type=KEYWORD_STRING;
-    else
-        type=IDENTIFIER;
-
-    addToken(type);
+    tokens.push_back(Token(END_OF_FILE, "", line, col));
+    return tokens;
 }
 
-//number
-void Lexer:: number(){
-    while(isdigit(peek())){
-        advance();
-    }
+vector<LexError> Lexer::getErrors() { return errors; }
 
-    addToken(NUMBER);
-}
-
-//string literal identifiaction
-void Lexer::stringLiteral(){
-    while(peek()!='"' && !isAtend()){
-        if(peek()=='\n'){
-            line++;
-            col=1;
-        }
-        advance();
-    }
-    if(isAtend()){
-        cerr<<"LEXER ERROR line "<<line<<" unterminatedd strong"<<endl;
-        return;
-    }
-    advance();
-    addToken(STRING_LITERAL);
-}
-//scann token
-void Lexer::scanToken(){
-    start=current;
-    char c=advance();
-
-    switch ((c))
-    {
-        //single char tokens
+void Lexer::scanToken() {
+    char c = advance();
+    switch(c) {
+        case '(': addToken(LEFT_PAREN); break;
+        case ')': addToken(RIGHT_PAREN); break;
+        case '{': addToken(LEFT_BRACE); break;
+        case '}': addToken(RIGHT_BRACE); break;
+        case ';': addToken(SEMICOLON); break;
+        case ',': addToken(COMMA); break;
         case '+': addToken(PLUS); break;
         case '-': addToken(MINUS); break;
         case '*': addToken(MULTIPLY); break;
-
-        case '=': addToken(ASSIGN); break;
-        case ';': addToken(SEMICOLON); break;
-        
         case '/':
-            if(peek()=='/'){//if its a comment
-                while(peek()!='\n'&& !isAtend())
-                    advance();
-            }
-            else if(peek()=='*'){
+            if (peek() == '/') while (peek() != '\n' && !isAtEnd()) advance();
+            else if (peek() == '*') {
                 advance();
-
-                while(!isAtend() && !(peek()=='*' && peekNext()=='/')){
-                    if(peek()=='\n'){
-                        line++;
-                        col=1;
-                    }
+                while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
+                    if (peek() == '\n') { line++; col = 1; }
                     advance();
                 }
-                if(!isAtend()){
-                    advance();// *
-                    advance();// /
-                }
-            }
-            else//it was a divide
-                addToken(DIVIDE); break;
-
-        case '"'://string literal
-            stringLiteral();
+                advance(); advance();
+            } else addToken(DIVIDE);
             break;
-
-        case '\'' : //char literals
-            if(!isAtend())advance();
-            if(peek()=='\''){
-                advance();
-                addToken(STRING_LITERAL);
-            }
-            else
-                cerr<<"Invalid char liteal"<<endl;
-            break;
-
-
-        //ignore whitepsce
-        case ' ':
-        case '\r':
-        case '\t':
-            break;
-        case '\n': line++;
-            col=1;
-            break;
-    default:
-        //identifiers or keywords
-        if(isalpha(c)||c=='_')
-            identifier();
-        
-        //numbers
-        else if(isdigit(c)){
-            number();
-        }
-        //invalid characters        
-        else{
-            cerr<<"Lexer error line "<<line<<" col "<<col<<" undefiend character"<<endl;
-            addToken(UNKNOWN);
-        }
-        break;
+        case '=': if (peek() == '=') { advance(); addToken(EQUAL_EQUAL); } else addToken(ASSIGN); break;
+        case '>': if (peek() == '=') { advance(); addToken(GREATER_EQUAL); } else addToken(GREATER); break;
+        case '<': if (peek() == '=') { advance(); addToken(LESS_EQUAL); } else addToken(LESS); break;
+        case '!': if (peek() == '=') { advance(); addToken(NOT_EQUAL); } else addToken(BANG); break;
+        case '"': stringLiteral(); break;
+        case '\'': charLiteral(); break;
+        case ' ': case '\r': case '\t': break;
+        case '\n': line++; col = 1; break;
+        default:
+            if (isdigit(c)) number();
+            else if (isalpha(c) || c == '_') identifier();
+            else { addError("Invalid character"); addToken(UNKNOWN); }
     }
 }
 
-vector<Token> Lexer::tokenize(){
-    while(!isAtend()){
-        start=current; //to sync pointers for the new token
-        scanToken();
+void Lexer::number() {
+    while (isdigit(peek())) advance();
+    addToken(NUMBER);
+}
+
+void Lexer::identifier() {
+    while (isalnum(peek()) || peek() == '_') advance();
+    string text = source.substr(start, current - start);
+    
+    if (text == "int") addToken(KEYWORD_INT);
+    else if (text == "char") addToken(KEYWORD_CHAR);
+    else if (text == "string") addToken(KEYWORD_STRING);
+    else if (text == "void") addToken(KEYWORD_VOID);
+    else if (text == "if") addToken(KEYWORD_IF);
+    else if (text == "else") addToken(KEYWORD_ELSE);
+    else if (text == "for") addToken(KEYWORD_FOR);
+    else if (text == "return") addToken(KEYWORD_RETURN);
+    else if (text == "break") addToken(KEYWORD_BREAK);
+    else if (text == "continue") addToken(KEYWORD_CONTINUE);
+    else addToken(IDENTIFIER);
+}
+
+void Lexer::stringLiteral() {
+    while (peek() != '"' && !isAtEnd()) {
+        if (peek() == '\n') { line++; col = 1; }
+        advance();
     }
+    if (isAtEnd()) { addError("Unterminated string"); return; }
+    advance();
+    addToken(STRING_LITERAL);
+}
 
-    //after everything appending end of file
-    tokens.push_back(Token(END_OF_FILE,"EOF",line,col));
-
-    return tokens;
+void Lexer::charLiteral() {
+    if (peek() == '\0') { addError("Invalid char literal"); return; }
+    advance();
+    if (peek() != '\'') { addError("Invalid char format"); return; }
+    advance();
+    addToken(CHAR_LITERAL);
 }
