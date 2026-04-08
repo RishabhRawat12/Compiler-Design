@@ -2,79 +2,59 @@
 #define EXPR_H
 
 #include "ast.h"
+#include <memory>
+#include <vector>
 
-//adding number 
 class NumberExpr : public Expr {
 public:
     int value;
-    NumberExpr(int val) : value(val) {}
-    void print(int indent) override {
-        for(int i=0; i<indent; i++) cout << "  ";
-        cout << "NumberExpr(" << value << ")" << endl;
-    }
+    NumberExpr(int val, int l) : value(val) { line = l; }
+    json toJson() const override { return { {"type", "NumberExpr"}, {"value", value}, {"line", line} }; }
 };
 
-
-//adding variables
 class VariableExpr : public Expr {
 public:
     string name;
-    VariableExpr(string n) : name(n) {}
-    void print(int indent) override {
-        for(int i=0; i<indent; i++) cout << "  ";
-        cout << "VariableExpr(" << name << ")" << endl;
-    }
+    VariableExpr(string n, int l) : name(n) { line = l; }
+    json toJson() const override { return { {"type", "VariableExpr"}, {"name", name}, {"line", line} }; }
 };
 
-//adding string literals
 class StringExpr : public Expr {
 public:
     string value;
-    StringExpr(string v) : value(v) {}
-    void print(int indent) override {
-        for(int i=0; i<indent; i++) cout << "  ";
-        cout << "StringExpr(" << value << ")" << endl;
-    }
+    StringExpr(string v, int l) : value(v) { line = l; }
+    json toJson() const override { return { {"type", "StringExpr"}, {"value", value}, {"line", line} }; }
 };
 
-//Added Char Literals Node
 class CharExpr : public Expr {
 public:
     string value;
-    CharExpr(string v) : value(v) {}
-    void print(int indent) override {
-        for(int i=0; i<indent; i++) cout << "  ";
-        cout << "CharExpr(" << value << ")" << endl;
+    CharExpr(string v, int l) : value(v) { line = l; }
+    json toJson() const override { return { {"type", "CharExpr"}, {"value", value}, {"line", line} }; }
+};
+
+class BinaryExpr : public Expr {
+public:
+    std::unique_ptr<Expr> left;
+    string op;
+    std::unique_ptr<Expr> right;
+    BinaryExpr(std::unique_ptr<Expr> l, string o, std::unique_ptr<Expr> r, int l_num)
+        : left(move(l)), op(o), right(move(r)) { line = l_num; }
+    json toJson() const override {
+        return { {"type", "BinaryExpr"}, {"op", op}, {"left", left ? left->toJson() : json()}, {"right", right ? right->toJson() : json()}, {"line", line} };
     }
 };
 
-
-//node  for binary operations (+, -, *, /) ke liye
-class BinaryExpr : public Expr {
+class CallExpr : public Expr {
 public:
-    Expr* left;
-    string op;
-    Expr* right;
-
-    BinaryExpr(Expr* l, string o, Expr* r) : left(l), op(o), right(r) {}
-
-    // Destructor 
-    ~BinaryExpr() {
-        delete left;
-        delete right;
-    }
-
-    void print(int indent) override {
-        for(int i=0; i<indent; i++) cout << "  ";
-        cout << "BinaryExpr(" << op << ")" << endl;
-        
-        for(int i=0; i<indent+1; i++) cout << "  ";
-        cout << "left:" << endl;
-        if(left) left->print(indent + 2);
-        
-        for(int i=0; i<indent+1; i++) cout << "  ";
-        cout << "right:" << endl;
-        if(right) right->print(indent + 2);
+    string callee;
+    std::vector<std::unique_ptr<Expr>> arguments;
+    CallExpr(string c, std::vector<std::unique_ptr<Expr>> args, int l)
+        : callee(c), arguments(move(args)) { line = l; }
+    json toJson() const override {
+        json argsJson = json::array();
+        for (const auto& a : arguments) argsJson.push_back(a->toJson());
+        return { {"type", "CallExpr"}, {"callee", callee}, {"arguments", argsJson}, {"line", line} };
     }
 };
 
