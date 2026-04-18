@@ -1,0 +1,68 @@
+{
+    "semanticErrors": [
+        {
+            "col": 0,
+            "line": 0,
+            "message": "WARNING: Unused variable: 'f'",
+            "type": "warning"
+        }
+    ],
+    "symbolTable": {
+        "a": {
+            "isFunction": false,
+            "line": 2,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "b": {
+            "isFunction": false,
+            "line": 3,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "c": {
+            "isFunction": false,
+            "line": 4,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "d": {
+            "isFunction": false,
+            "line": 5,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "e": {
+            "isFunction": false,
+            "line": 6,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "f": {
+            "isFunction": false,
+            "line": 7,
+            "paramTypes": [],
+            "scope": "LOCAL",
+            "type": "int"
+        },
+        "main": {
+            "isFunction": true,
+            "line": 10,
+            "paramTypes": [],
+            "scope": "GLOBAL",
+            "type": "int"
+        },
+        "test": {
+            "isFunction": true,
+            "line": 1,
+            "paramTypes": [],
+            "scope": "GLOBAL",
+            "type": "void"
+        }
+    }
+}

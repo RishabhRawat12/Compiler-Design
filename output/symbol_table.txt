@@ -1,0 +1,12 @@
+
+==================================================
+NAME           TYPE           LINE      SCOPE     
+--------------------------------------------------
+bonus          KEYWORD_INT    3         GLOBAL    
+final_result   KEYWORD_INT    11        GLOBAL    
+grade          KEYWORD_CHAR   8         GLOBAL    
+score          KEYWORD_INT    2         GLOBAL    
+total          KEYWORD_INT    4         GLOBAL    
+user           KEYWORD_STRING 7         GLOBAL    
+welcome        KEYWORD_STRING 12        GLOBAL    
+==================================================

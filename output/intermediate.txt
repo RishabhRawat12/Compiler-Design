@@ -1,0 +1,11 @@
+a = 30
+b = a
+c = b
+d = 0
+e = d
+t4 = e + 1
+f = t4
+end function
+header main
+return 0
+end function

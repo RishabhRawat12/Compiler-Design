@@ -1,0 +1,53 @@
+
+--- Generated AST Structure ---
+DeclarationStmt
+  name: score
+  value:
+    NumberExpr(85)
+
+DeclarationStmt
+  name: bonus
+  value:
+    NumberExpr(10)
+
+DeclarationStmt
+  name: total
+  value:
+    BinaryExpr(+)
+      left:
+        VariableExpr(score)
+      right:
+        BinaryExpr(*)
+          left:
+            VariableExpr(bonus)
+          right:
+            NumberExpr(2)
+
+DeclarationStmt
+  name: user
+  value:
+    StringExpr("Rishabh")
+
+DeclarationStmt
+  name: grade
+  value:
+    CharExpr('A')
+
+DeclarationStmt
+  name: final_result
+  value:
+    BinaryExpr(/)
+      left:
+        VariableExpr(total)
+      right:
+        NumberExpr(2)
+
+DeclarationStmt
+  name: welcome
+  value:
+    BinaryExpr(+)
+      left:
+        StringExpr("Hello ")
+      right:
+        VariableExpr(user)
+

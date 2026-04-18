@@ -1,0 +1,13 @@
+void test() {
+    int a = 10 + 20;    // Constant Folding
+    int b = a + 0;      // Algebraic Simplification
+    int c = b * 1;      // Algebraic Simplification
+    int d = c * 0;      // Algebraic Simplification
+    int e = d;          
+    int f = e + 1;      // Use e
+}
+
+int main() {
+    test();
+    return 0;
+}

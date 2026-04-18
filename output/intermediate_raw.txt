@@ -1,0 +1,16 @@
+header test
+t0 = 10 + 20
+a = t0
+t1 = a + 0
+b = t1
+t2 = b * 1
+c = t2
+t3 = c * 0
+d = t3
+e = d
+t4 = e + 1
+f = t4
+end function
+header main
+return 0
+end function

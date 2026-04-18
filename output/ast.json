@@ -1,0 +1,148 @@
+{
+    "ast": [
+        {
+            "body": [
+                {
+                    "initializer": {
+                        "left": {
+                            "line": 2,
+                            "type": "NumberExpr",
+                            "value": 10
+                        },
+                        "line": 2,
+                        "op": "+",
+                        "right": {
+                            "line": 2,
+                            "type": "NumberExpr",
+                            "value": 20
+                        },
+                        "type": "BinaryExpr"
+                    },
+                    "line": 2,
+                    "name": "a",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                },
+                {
+                    "initializer": {
+                        "left": {
+                            "line": 3,
+                            "name": "a",
+                            "type": "VariableExpr"
+                        },
+                        "line": 3,
+                        "op": "+",
+                        "right": {
+                            "line": 3,
+                            "type": "NumberExpr",
+                            "value": 0
+                        },
+                        "type": "BinaryExpr"
+                    },
+                    "line": 3,
+                    "name": "b",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                },
+                {
+                    "initializer": {
+                        "left": {
+                            "line": 4,
+                            "name": "b",
+                            "type": "VariableExpr"
+                        },
+                        "line": 4,
+                        "op": "*",
+                        "right": {
+                            "line": 4,
+                            "type": "NumberExpr",
+                            "value": 1
+                        },
+                        "type": "BinaryExpr"
+                    },
+                    "line": 4,
+                    "name": "c",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                },
+                {
+                    "initializer": {
+                        "left": {
+                            "line": 5,
+                            "name": "c",
+                            "type": "VariableExpr"
+                        },
+                        "line": 5,
+                        "op": "*",
+                        "right": {
+                            "line": 5,
+                            "type": "NumberExpr",
+                            "value": 0
+                        },
+                        "type": "BinaryExpr"
+                    },
+                    "line": 5,
+                    "name": "d",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                },
+                {
+                    "initializer": {
+                        "line": 6,
+                        "name": "d",
+                        "type": "VariableExpr"
+                    },
+                    "line": 6,
+                    "name": "e",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                },
+                {
+                    "initializer": {
+                        "left": {
+                            "line": 7,
+                            "name": "e",
+                            "type": "VariableExpr"
+                        },
+                        "line": 7,
+                        "op": "+",
+                        "right": {
+                            "line": 7,
+                            "type": "NumberExpr",
+                            "value": 1
+                        },
+                        "type": "BinaryExpr"
+                    },
+                    "line": 7,
+                    "name": "f",
+                    "type": "DeclarationStmt",
+                    "varType": "int"
+                }
+            ],
+            "line": 1,
+            "name": "test",
+            "params": [],
+            "returnType": "void",
+            "type": "FunctionStmt"
+        },
+        {
+            "body": [
+                {
+                    "line": 12,
+                    "type": "ReturnStmt",
+                    "value": {
+                        "line": 12,
+                        "type": "NumberExpr",
+                        "value": 0
+                    }
+                }
+            ],
+            "line": 10,
+            "name": "main",
+            "params": [],
+            "returnType": "int",
+            "type": "FunctionStmt"
+        }
+    ],
+    "errors": []
+}

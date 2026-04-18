@@ -1,0 +1,12 @@
+// Testing basic types and arithmetic
+int score = 85;
+int bonus = 10;
+int total = score + bonus * 2;
+
+// Testing strings and chars
+string user = "Rishabh";
+char grade = 'A';
+
+// Testing variable reuse in expressions
+int final_result = total / 2;
+string welcome = "Hello " + user;
